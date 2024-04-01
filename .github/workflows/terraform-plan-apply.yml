@@ -31,6 +31,25 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
 
     steps:
+    ## Check if GitHub runner is Linux, exit if it isn't
+    - name: Check Runner is Linux
+      if: runner.os != 'Linux'
+      run: |
+        echo "The operating system on the runner is not Linux, it's $RUNNER_OS."
+        exit 1
+      continue-on-error: false
+
+    ## Greetings
+    - name: Greetings
+      run: echo "Running as ${GITHUB_ACTOR} for ${GITHUB_REPOSITORY} on ${RUNNER_OS}!"
+   
+    ## Harden runner
+##    - name: Harden Runner
+##      uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+##     with:
+##       egress-policy: audit
+
+    ## Login
     - name: OIDC Login to Azure
       uses: azure/login@v2
       with:
@@ -39,6 +58,21 @@ jobs:
         subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         enable-AzPSSession: true
         
+    ## Checkout the repository
+    - name: Clone Repo ${GITHUB_REPOSITORY}
+      uses: actions/checkout@v4
+
+    ## Install and setup Terraform
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_wrapper: false
+
+    ## Show Terraform version
+    - name: Show Terraform Version
+      run: terraform -chdir=$WORKING_DIRECTORY version
+  
+    ## Call reusable workflow to run Terraform Plan/Apply
     - name: Run Terraform Plan / Apply
       uses: webstean/github-reusable-workflows/workflows/tf-apply-reusable.txt@main
       with:
