@@ -40,6 +40,6 @@ jobs:
         enable-AzPSSession: true
         
     - name: Run Terraform Plan / Apply
-      uses: webstean/github-reusable-workflows/workflows/tf-apply.yml@main
+      uses: webstean/github-reusable-workflows/workflows/tf-apply-reusable.txt@main
       with:
         target: ${{ matrix.target }}
