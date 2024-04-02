@@ -72,8 +72,7 @@ jobs:
     - name: Show Terraform Version
       run: terraform -chdir=$WORKING_DIRECTORY version
   
-    ## Call reusable workflow to run Terraform Plan/Apply
-    - name: Run Terraform Plan / Apply
+  terraform:
       uses: webstean/github-reusable-workflows/workflows/tf-apply-reusable.txt@main
       with:
         target: ${{ matrix.target }}
