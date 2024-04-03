@@ -73,6 +73,6 @@ jobs:
       run: terraform -chdir=$WORKING_DIRECTORY version
   
   terraform:
-      uses: webstean/github-reusable-workflows/workflows/tf-apply-reusable.txt@main
+      uses: webstean/github-reusable-workflows/.github/workflows/tf-apply-reusable.txt@main
       with:
         target: ${{ matrix.target }}
