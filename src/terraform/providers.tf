@@ -22,64 +22,66 @@ terraform {
 
   required_providers {
     azurerm = {
-      # Azure resource manager
+      ## Azure resource manager
       source  = "hashicorp/azurerm"
       version = "~>3.0, < 4.0"
     }
     azuread = {
-      # Azure AD (Entra ID)
+      ## Azure AD (Entra ID)
       source  = "hashicorp/azuread"
       version = "~>2.0, < 3.0"
     }
     azapi = {
-      # Azure API Provider - use for Azure resources that are not directly support by the azurerm or azuread providers
+      ## Azure API Provider - use for Azure resources that are not directly support by the azurerm or azuread providers
       source = "azure/azapi"
     }
     github = {
-      # GitHub
+      ## GitHub
       source  = "integrations/github"
       version = "~>6.0, < 7.0"
     }
     random = {
-      # Random
+      ## Random
       source  = "hashicorp/random"
       version = "~>3.0, < 4.0"
     }
-    null = {
-      source  = "hashicorp/null"
-      version = "~>3.0, < 4.0"
-    }
+#   null = {
+      ## The null_resource resource implements the standard resource lifecycle but takes no further action.
+      ## On Terraform 1.4 and later, use the terraform_data resource type instead.
+#      source  = "hashicorp/null"
+#      version = "3.2.2"
+#    }
     time = {
       ## In most cases, this resource should be considered a workaround for issues that should be reported and handled in downstream Terraform Provider logic.
       ## Downstream resources can usually introduce or adjust retries in their code to handle time delay issues for all Terraform configurations or upstream resources
       ## can be improved to better wait for a resource to be fully ready and available.
       source  = "hashicorp/time"
-      version = "0.9.1"
+      version = "~>0.9, < 1.0"
     }
-    curl = {
-      # curl
-      source  = "anschoewe/curl"
-      version = "1.0.2"
-    }
+##    curl = {
+##      ## curl
+##      source  = "anschoewe/curl"
+##      version = "~>1.0, < 2.0"
+##    }
     local = {
-      # The Local provider is used to manage local resources, such as files.
+      ## The Local provider is used to manage local resources, such as files.
       source  = "hashicorp/local"
-      version = "2.4.1"
+      version = "~>2.0, < 3.0"
     }
     tls = {
-      # working with Transport Layer Security keys and certificates
+      ## working with Transport Layer Security keys and certificates
       source  = "hashicorp/tls"
-      version = "4.0.4"
+      version = "~>4.0, < 5.0"
     }
     acme = {
-      # Letsencrypt certs etc..
+      ## Letsencrypt certs etc..
       source  = "vancluever/acme"
       version = "~> 2.0"
     }
     cloudinit = {
-      # CloudInit
+      ## CloudInit
       source  = "hashicorp/cloudinit"
-      version = "2.3.2"
+      version = "~> 2.3"
     }
   }
 }
