@@ -1,4 +1,4 @@
-name: Terraform - Run Plan / Apply for Terraform after OIDC logon
+nname: Terraform - Run Plan / Apply for Terraform after OIDC logon
 
 on:
 on:
