@@ -32,11 +32,8 @@ env:
   ENVIRONMENT_NAME: "production"    
   ## ENVIRONMENT_NAME: "staging"    
   ## ENVIRONMENT_NAME: "development"    
-  ## Service Principal
-  ARM_CLIENT_ID: "${{ secrets.ARM_CLIENT_ID }}"
-  ## Maanaged Identity
-  ## ARM_CLIENT_ID: "${{ secrets.ARM_FED_CLIENT_ID }}"
-  
+   ## OIDC Identity
+  ARM_CLIENT_ID: "${{ secrets.ARM_FED_CLIENT_ID }}"
   ## only needed for Service Principal
   #ARM_CLIENT_SECRET: "${{ secrets.ARM_CLIENT_SECRET }}"
 
@@ -44,7 +41,6 @@ env:
   ARM_TENANT_ID: "${{ secrets.ARM_TENANT_ID }}"
   ARM_SKIP_PROVIDER_REGISTRATION: true
   
-
 jobs:
   matrix-setup:
     name: 'Config Runner'
