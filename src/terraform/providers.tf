@@ -1,24 +1,7 @@
-module "naming" {
-  for_each = local.regions
-
-  source = "Azure/naming/azurerm"
-  # prefix"	It is not recommended that you use prefix by azure you should be using a suffix for your resources.
-
-  ## suffix:	It is recommended that you specify a suffix for consistency. please use only lowercase characters when possible	list(string)	[]	no
-  suffix = ["${lower(var.prefix)}-${lower(var.environment)}-${lower(local.regions[each.key].short_name)}"]
-
-  ## unique-include-numbers: include numbers in the unique generation	bool. Default	to true
-
-  ## unique-length:	Max length of the uniqueness suffix to be added	number
-  # unique-length 
-
-  ## Custom value for the random characters to be used
-  unique-seed = 1
-}
 
 terraform {
 
-  required_version = ">= 1.7.4"
+  required_version = ">= 1.8"
 
   required_providers {
     azurerm = {
@@ -45,12 +28,6 @@ terraform {
       source  = "hashicorp/random"
       version = "~>3.0, < 4.0"
     }
-#   null = {
-      ## The null_resource resource implements the standard resource lifecycle but takes no further action.
-      ## On Terraform 1.4 and later, use the terraform_data resource type instead.
-#      source  = "hashicorp/null"
-#      version = "3.2.2"
-#    }
     time = {
       ## In most cases, this resource should be considered a workaround for issues that should be reported and handled in downstream Terraform Provider logic.
       ## Downstream resources can usually introduce or adjust retries in their code to handle time delay issues for all Terraform configurations or upstream resources
@@ -58,11 +35,6 @@ terraform {
       source  = "hashicorp/time"
       version = "~>0.9, < 1.0"
     }
-##    curl = {
-##      ## curl
-##      source  = "anschoewe/curl"
-##      version = "~>1.0, < 2.0"
-##    }
     local = {
       ## The Local provider is used to manage local resources, such as files.
       source  = "hashicorp/local"
@@ -89,6 +61,7 @@ terraform {
 
 # This is the "Default" provider for azurerm
 provider "azurerm" {
+  skip_provider_registration = true
   # The "features" block is required for AzureRM provider 2.x.
   features {
     api_management {
@@ -107,15 +80,12 @@ provider "azurerm" {
     template_deployment {
       delete_nested_items_during_deletion = false
     }
-    /*
     machine_learning_workspace {
       enable_managed_identity = false
       purge_soft_delete_on_destroy    = true
       recover_soft_deleted_key_vaults = false
     }
-*/
   }
-  skip_provider_registration = true
 }
 
 /*
